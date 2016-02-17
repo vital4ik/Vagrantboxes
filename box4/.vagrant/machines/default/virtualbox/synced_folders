@@ -1,0 +1,1 @@
+{"smb":{"/testshare":{"type":"smb","guestpath":"/testshare","hostpath":"C:/test","disabled":false,"__vagrantfile":true,"smb_id":"803dc2ac32cb74e428cafbe18aa4c321"}},"virtualbox":{"/vagrant":{"guestpath":"/vagrant","hostpath":"C:/Users/vf79974/Vagrantboxes/box4","disabled":false,"__vagrantfile":true}}}
