@@ -1,0 +1,5 @@
+# box packages
+*.box
+
+#VM disk files
+*.vmdk

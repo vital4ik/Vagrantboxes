@@ -1,0 +1,42 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# All Vagrant configuration is done below. The "2" in Vagrant.configure
+# configures the configuration version (we support older styles for
+# backwards compatibility). Please don't change it unless you know what
+# you're doing.
+Vagrant.configure(2) do |config|
+	config.vm.define :webserver do |webserver|
+	   webserver.vm.box = "vagrant-centos-base.box" 
+	   webserver.vm.box_url = "http://127.0.0.1/vagrant-centos-base.box"
+	   #webserver.memory = "512"
+	   webserver.vm.network "private_network", ip: "10.2.0.10"
+	   webserver.vm.provider "virtualbox" do |vb|
+		 vb.customize ["modifyvm", :id, "--memory", "512"]
+         vb.customize ["modifyvm", :id, "--cpus", "1"]
+	   end 
+		webserver.vm.provision "shell", inline: <<-SHELL
+			sudo hostname webserver
+		SHELL
+		#webserver.vm.provision "ansible" do |ansible|
+		#	ansible.playbook="playbook.yml"
+		#end
+	end
+	
+		config.vm.define :appserver do |appserver|
+	   appserver.vm.box = "vagrant-centos-base.box"
+	   appserver.vm.box_url = "http://127.0.0.1/vagrant-centos-base.box"
+	   #appserver.memory = "1024"
+	   appserver.vm.network "private_network", ip: "10.2.0.11"
+	   appserver.vm.provider "virtualbox" do |vb|
+		 vb.customize ["modifyvm", :id, "--memory", "1024"]
+         vb.customize ["modifyvm", :id, "--cpus", "2"]
+		 #vb.customize ["createhd", "--filename", "disk.vmdk", "--size", "1024"]
+         #vb.customize ["storageattach", :id, "--storagectl", "SATA Controller", "--port", 1, "--device", 0, "--type", "hdd", "--medium", "disk.vmdk"]
+		 #vb.customize ["storageattach", :id, "--storagectl", "SATA Controller", "--port", "1", "--type", "hdd", "--medium", "machine1_disk0.vdi"]
+	   end 
+	   appserver.vm.provision "shell", inline: <<-SHELL
+			sudo hostname appserver
+		SHELL
+	end
+end
