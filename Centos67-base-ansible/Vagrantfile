@@ -11,14 +11,14 @@ Vagrant.configure(2) do |config|
 	   webserver.vm.box_url = "http://127.0.0.1/vagrant-centos-base.box"
 	   #webserver.memory = "512"
 	   webserver.vm.network "private_network", ip: "10.2.0.10"
-	   #webserver.vm.network :forwarded_port, guest: 80, host 80
-	   webserver.vm.network "forwarded_port", guest: "443", host "443"# , protocol: "tcp"
+	   webserver.vm.network :forwarded_port, guest: 80, host: 8880
+	   webserver.vm.network "forwarded_port", guest: 443, host: 4443
 	   webserver.vm.provider "virtualbox" do |vb|
 		 vb.customize ["modifyvm", :id, "--memory", "512"]
          vb.customize ["modifyvm", :id, "--cpus", "1"]
 	   end 
 		webserver.vm.provision "shell", inline: <<-SHELL
-			sudo hostname webserver
+			sudo hostname jbcllcuic9990
 		SHELL
 		#webserver.vm.provision "ansible" do |ansible|
 		#	ansible.playbook="playbook.yml"
@@ -29,7 +29,7 @@ Vagrant.configure(2) do |config|
 	   appserver.vm.box = "vagrant-centos-base.box"
 	   appserver.vm.box_url = "http://127.0.0.1/vagrant-centos-base.box"
 	   #appserver.memory = "1024"
-	   appserver.vm.network "private_network", ip: "10.2.0.11"
+	   appserver.vm.network "private_network", ip: "10.2.0.20"
 	   appserver.vm.provider "virtualbox" do |vb|
 		 vb.customize ["modifyvm", :id, "--memory", "1024"]
          vb.customize ["modifyvm", :id, "--cpus", "2"]
@@ -38,7 +38,7 @@ Vagrant.configure(2) do |config|
 		 #vb.customize ["storageattach", :id, "--storagectl", "SATA Controller", "--port", "1", "--type", "hdd", "--medium", "machine1_disk0.vdi"]
 	   end 
 	   appserver.vm.provision "shell", inline: <<-SHELL
-			sudo hostname appserver
+			sudo hostname jbclltdpc9990
 		SHELL
 	end
 end
